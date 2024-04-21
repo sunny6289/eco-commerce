@@ -4,7 +4,7 @@ import ProductListComponent from './ProductList/ProductList.component';
 const MainComponent = () => {
     return (
         <>
-            <div className="p-12 flex flex-col gap-4">
+            <div className="flex flex-col gap-4 p-24">
                 <ProductListComponent />
                 <ProductListComponent />
                 <ProductListComponent />
