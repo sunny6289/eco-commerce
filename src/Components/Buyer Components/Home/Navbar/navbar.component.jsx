@@ -6,7 +6,7 @@ import OrdersBtnComponent from './OrdersBtn.component';
 import CartBtnComponent from './CartBtn.component';
 import WishlistBtnComponent from './WishlistBtn.component';
 import ProfileBtnComponent from './ProfileBtn.component';
-import SigninBtnComponent from './SigninBtn.component';
+import SigninBtnComponent from './SignOutBtn.component';
 
 const NavbarComponent = () => {
     return (
@@ -17,8 +17,6 @@ const NavbarComponent = () => {
                 <CategoryComponent />
                 <CartBtnComponent />
                 <WishlistBtnComponent />
-                <OrdersBtnComponent />
-                <SigninBtnComponent />
                 <ProfileBtnComponent />
             </div>
         </>
