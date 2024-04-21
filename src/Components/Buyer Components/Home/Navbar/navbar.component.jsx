@@ -11,7 +11,7 @@ import SigninBtnComponent from './SignOutBtn.component';
 const NavbarComponent = () => {
     return (
         <>
-            <div className="p-4 w-full border-gray-100 bg-slate-300 flex gap-2 justify-around flex-wrap">
+            <div className="z-10 drop-shadow-sm fixed p-4 w-full border-gray-100 bg-slate-300 flex gap-2 justify-around flex-wrap">
                 <LogoComponent />
                 <SearchBarComponent />
                 <CategoryComponent />
