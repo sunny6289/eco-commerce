@@ -2,11 +2,9 @@ import React from 'react';
 import LogoComponent from './Logo.component';
 import SearchBarComponent from './Search-bar.component';
 import CategoryComponent from './Category.component';
-import OrdersBtnComponent from './OrdersBtn.component';
 import CartBtnComponent from './CartBtn.component';
 import WishlistBtnComponent from './WishlistBtn.component';
 import ProfileBtnComponent from './ProfileBtn.component';
-import SigninBtnComponent from './SignOutBtn.component';
 
 const NavbarComponent = () => {
     return (

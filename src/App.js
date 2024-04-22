@@ -1,15 +1,16 @@
-import NavbarComponent from "./Components/Buyer Components/Home/Navbar/navbar.component";
-import MainComponent from "./Components/Buyer Components/Main/Main.component";
-import Authentication from "./Routes/Authentication/authentication.component";
-
+import { Routes, Route } from 'react-router-dom';
+import HomeComponent from './Components/Buyer Components/Home/home.component';
+import CartComponent from './Routes/Buyer Routes/Cart/CartPage.component';
+import MainComponent from './Components/Buyer Components/Main/Main.component';
 
 const App = () => {
   return (
-    <div>
-      {/* <Authentication/> */}
-      <NavbarComponent />
-      <MainComponent />
-    </div>
+    <Routes>
+      <Route path='/' element={<HomeComponent />}>
+        <Route index element={<MainComponent />} />
+        <Route path='/cart' element={<CartComponent />} />
+      </Route>
+    </Routes>
   );
 }
 

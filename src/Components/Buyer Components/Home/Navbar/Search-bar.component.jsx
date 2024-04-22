@@ -4,7 +4,6 @@ import { ProductContext } from '../../../../Context/product.context';
 const SearchBarComponent = () => {
     const [searchBarVal, setSearchBarVal] = useState('');
     const { productToShowFromSearch } = useContext(ProductContext);
-    console.log(searchBarVal);
     const searchBardInputHandler = (e)=>{
         setSearchBarVal(e.target.value.toLowerCase());
     }

@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ProductContext } from '../../../../Context/product.context';
 
 const ProductListComponent = ({ product }) => {
     const { productName, productDescription, productPrice, productImageURL, productRating } = product;
+    const { insertProductInCart } = useContext(ProductContext);
+
+    const addToCart = ()=> insertProductInCart(product);
     return (
         <>
             <div className="p-2 border-2 bg-slate-100 rounded-md drop-shadow-md flex flex-col gap-2 md:flex-row">
@@ -30,7 +34,7 @@ const ProductListComponent = ({ product }) => {
                     <div className="p-2 flex gap-2 justify-center flex-col md:flex-row">
                         <button className='bg-green-700 text-white p-2 rounded-md w-full'>Buy Now <i class="fa-solid fa-bolt"></i></button>
                         <button className='bg-green-700 text-white p-2 rounded-md w-full'>Add to Wishlist <i class="fa-solid fa-heart text-slate-100 text-lg" /></button>
-                        <button className='bg-green-700 text-white p-2 rounded-md w-full'>Add to Cart <i class="fa-solid fa-cart-shopping text-slate-100" /></button>
+                        <button onClick={addToCart} className='bg-green-700 text-white p-2 rounded-md w-full'>Add to Cart <i class="fa-solid fa-cart-shopping text-slate-100" /></button>
                     </div>
                 </div>
             </div>

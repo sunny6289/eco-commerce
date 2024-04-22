@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import ProductListContainerComponent from '../Home/ProductList Container/ProductListContainer.component';
 import { UserContext } from '../../../Context/user.context';
 import ProfileCardComponent from '../Profile Card/ProfileCard.component';
-import CartComponent from './Cart/Cart.component';
 
 const MainComponent = () => {
     const { isProfileCardOpen } = useContext(UserContext);
@@ -13,8 +12,7 @@ const MainComponent = () => {
                 {
                     isProfileCardOpen && <ProfileCardComponent/>
                 }
-                {/* <ProductListContainerComponent /> */}
-                <CartComponent />
+                <ProductListContainerComponent />
             </div>
         </>
     );

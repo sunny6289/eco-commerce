@@ -1,10 +1,17 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 
 
 export const ProductContext = createContext({
     allProducts: [],
-    productsToShow: []
+    productToShow: [],
+    productInCart: [],
+    insertProductInCart: ()=>{},
+    decreaseQuantity: ()=>{},
+    increaseQuantity: ()=>{},
+    removeProductFromCart: ()=>{},
+    totalPrice: 0,
+    totalItem: 0,
 })
 
 export const ProductProvider = ({children})=>{
@@ -90,13 +97,66 @@ export const ProductProvider = ({children})=>{
         }
     ])
     const [productToShow, setProductToShow] = useState(allProducts);
+    const [productInCart, setProductInCart] = useState([]);
+    const [totalItem, setTotalItem ] = useState(0);
+    const [totalPrice, setTotalPrice ] = useState(0);
+console.log(productInCart);
+    useEffect(()=>{
+        const price = productInCart.reduce((acc,product)=> acc+= Number(product.productPrice*product.quantity),0)
+        setTotalPrice(price);
+    },[productInCart]);
+
+    useEffect(()=>{
+        const item = productInCart.reduce((acc,product)=> acc+= product.quantity,0)
+        setTotalItem(item);
+    },[productInCart]);
+
+    const insertProductInCart = (productToAdd)=>{
+        // Will be used to add product in Cart
+        const doesExist = productInCart.find((product)=> product.productId === productToAdd.productId);
+        if(doesExist){
+            alert("Product is already in cart");
+            return;
+        }
+        setProductInCart([...productInCart,{...productToAdd, quantity: 1}]);
+    }
 
     const productToShowFromSearch = (searchVal)=>{
         if(searchVal === '') return;
         const newProductToShow = allProducts.filter((product)=> product.productName.toLowerCase().includes(searchVal))
         setProductToShow(newProductToShow);
     }
-    const value = { productToShow, allProducts, setAllProducts, productToShowFromSearch};
+
+    const decreaseQuantity = (productIdToDecrease)=>{
+        const findProductInCart = productInCart.find((product)=> product.productId === productIdToDecrease);
+        if(findProductInCart.quantity === 1){
+            removeProductFromCart(productIdToDecrease);
+            return;
+        }
+        const newProductInCart = productInCart.map((product)=> {
+            if(product.productId === productIdToDecrease){
+                return {...product, quantity: product.quantity-1}
+            }
+            return product;
+        });
+        setProductInCart(newProductInCart);    
+    }
+
+    const increaseQuantity = (productIdToIncrease) =>{
+        const newProductInCart = productInCart.map((product)=> {
+            if(product.productId === productIdToIncrease){
+                return {...product, quantity: product.quantity+1}
+            }
+            return product
+        });
+        setProductInCart(newProductInCart);
+    }
+    const removeProductFromCart = (productIdToRemove)=>{
+        const newProductInCart = productInCart.filter((product)=> product.productId !== productIdToRemove);
+        setProductInCart(newProductInCart);
+    }
+
+    const value = { productToShow, allProducts, setAllProducts, productToShowFromSearch, productInCart, insertProductInCart, decreaseQuantity, increaseQuantity, totalPrice, totalItem, removeProductFromCart};
     return(
         <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
     )
