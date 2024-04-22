@@ -15,9 +15,6 @@ const MainComponent = () => {
                 }
                 {/* <ProductListContainerComponent /> */}
                 <WishlistItemContainerComponent />
-                <WishlistItemContainerComponent />
-                <WishlistItemContainerComponent />
-                <WishlistItemContainerComponent />
             </div>
         </>
     );
