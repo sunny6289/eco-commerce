@@ -126,7 +126,10 @@ export const ProductProvider = ({children})=>{
     }
 
     const productToShowFromSearch = (searchVal)=>{
-        if(searchVal === '') return;
+        if(searchVal === ''){
+            setProductToShow(allProducts);
+            return;
+        }  
         const newProductToShow = allProducts.filter((product)=> product.productName.toLowerCase().includes(searchVal))
         setProductToShow(newProductToShow);
     }
