@@ -6,10 +6,13 @@ export const ProductContext = createContext({
     allProducts: [],
     productToShow: [],
     productInCart: [],
+    productInWishlist: [],
     insertProductInCart: ()=>{},
+    insertProductInWishlist: ()=>{},
     decreaseQuantity: ()=>{},
     increaseQuantity: ()=>{},
     removeProductFromCart: ()=>{},
+    removeProductFromWishlist: ()=>{},
     totalPrice: 0,
     totalItem: 0,
 })
@@ -98,9 +101,10 @@ export const ProductProvider = ({children})=>{
     ])
     const [productToShow, setProductToShow] = useState(allProducts);
     const [productInCart, setProductInCart] = useState([]);
+    const [productInWishlist, setProductInWishlist] = useState([]);
     const [totalItem, setTotalItem ] = useState(0);
     const [totalPrice, setTotalPrice ] = useState(0);
-console.log(productInCart);
+
     useEffect(()=>{
         const price = productInCart.reduce((acc,product)=> acc+= Number(product.productPrice*product.quantity),0)
         setTotalPrice(price);
@@ -155,8 +159,20 @@ console.log(productInCart);
         const newProductInCart = productInCart.filter((product)=> product.productId !== productIdToRemove);
         setProductInCart(newProductInCart);
     }
+    const insertProductInWishlist = (productToAdd)=>{
+        const doesExist = productInWishlist.find((product)=> product.productId === productToAdd.productId);
+        if(doesExist){
+            alert("Product is already in Wishlist");
+            return;
+        }
+        setProductInWishlist([...productInWishlist,{...productToAdd}]);
+    }
+    const removeProductFromWishlist = (productIdToRemove)=>{
+        const newProductInWishlist = productInWishlist.filter((product)=> product.productId !== productIdToRemove);
+        setProductInWishlist(newProductInWishlist);
+    }
 
-    const value = { productToShow, allProducts, setAllProducts, productToShowFromSearch, productInCart, insertProductInCart, decreaseQuantity, increaseQuantity, totalPrice, totalItem, removeProductFromCart};
+    const value = { productToShow, allProducts, setAllProducts, productToShowFromSearch, productInCart, productInWishlist, insertProductInCart, decreaseQuantity, increaseQuantity, totalPrice, totalItem, removeProductFromCart, insertProductInWishlist, removeProductFromWishlist};
     return(
         <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
     )
