@@ -6,9 +6,9 @@ import { ProductContext } from '../../../Context/product.context';
 const WishlistItemContainerComponent = () => {
     const { productInWishlist } = useContext(ProductContext);
     return (
-        <div className='flex flex-col gap-5'>
+        <div className='flex flex-col gap-4 md:pt-8 pt-24 justify-center items-center'>
             {
-                productInWishlist ? 
+                productInWishlist.length ? 
                 productInWishlist.map((product)=> <WishlistItemComponent key={product.productId} product={product}/>) : <h2 style={{
                     fontSize: '50px',
                     fontWeight: 700,
