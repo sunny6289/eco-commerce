@@ -9,8 +9,8 @@ const ProductListComponent = ({ product }) => {
     const addToWishlist = ()=> insertProductInWishlist(product);
     return (
         <>
-            <div className="p-2 border-2 bg-slate-100 rounded-md drop-shadow-md flex flex-col gap-2 md:flex-row">
-                <div className="p-2 bg-cover max-w-[29rem]">
+            <div className="p-2 border-2 md:w-full w-[18rem] justify-center items-center bg-slate-100 rounded-md drop-shadow-md flex flex-col gap-2 md:flex-row">
+                <div className="p-2 bg-cover md:max-w-[28rem]">
                     <img src={productImageURL} alt=""
                     className=''
                     />

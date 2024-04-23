@@ -2,18 +2,19 @@ import React, { useContext } from 'react';
 import { ProductContext } from '../../../Context/product.context';
 
 const WishlistItemComponent = ({product}) => {
-    const { productId, productName, productDescription, productPrice } = product;
+    const { productId, productName, productDescription, productPrice, productImageURL } = product;
     const { insertProductInCart, removeProductFromWishlist } = useContext(ProductContext);
     const removeProduct = ()=> removeProductFromWishlist(productId);
     const addToCart = ()=> {
         insertProductInCart(product);
-        removeProductFromWishlist(productId);
+        // removeProductFromWishlist(productId);
     }
+    console.log(product);
 
     return (
             <div className="p-2 border-2 md:w-full w-[18rem] justify-center items-center bg-slate-100 rounded-md drop-shadow-md flex flex-col gap-2 md:flex-row">
                 <div className="p-2 bg-cover md:max-w-[20rem]">
-                    <img src="https://images.pexels.com/photos/3850468/pexels-photo-3850468.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt=""
+                    <img src={productImageURL} alt=""
                     className=''
                     />
                 </div>
