@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { ProductContext } from '../../../Context/product.context';
+import { Link } from 'react-router-dom';
 
 const CartItemComponent = ({product}) => {
     const [quantity, setQuantity ] = useState(1);
@@ -18,14 +19,17 @@ const CartItemComponent = ({product}) => {
         removeProductFromCart(productId);
     }
     return (
-        <>
+        
             <div className="p-2 border-2 md:w-full w-[18rem] justify-center items-center bg-slate-100 rounded-md drop-shadow-md flex flex-col gap-2 md:flex-row">
+                <Link to={`/${productId}`}>
                 <div className="p-2 bg-cover md:max-w-[20rem]">
                     <img src={productImageURL} alt=""
                     className=''
                     />
                 </div>
+                </Link>
                 <div className="p-2 h-auto w-full flex flex-col justify-between">
+                <Link to={`/${productId}`}>
                     <div className="flex gap-5 flex-col text-wrap">
                         <h2 className='text-xl'>{productName}</h2>
                         <p className='break-words text-wrap'>{productDescription}
@@ -33,6 +37,7 @@ const CartItemComponent = ({product}) => {
                         
                         <h1 className='text-xl'>Price: <b>${productPrice}</b></h1>
                     </div>
+                    </Link>
                     <div className="p-2 flex gap-2 justify-center flex-col md:flex-row">
                         <div className=" text-center flex md:flex-nowrap flex-wrap justify-center gap-4 items-center">
                                 <label>Quantity: </label>
@@ -48,7 +53,6 @@ const CartItemComponent = ({product}) => {
                     </div>
                 </div>
             </div>
-        </>
     );
 }
 

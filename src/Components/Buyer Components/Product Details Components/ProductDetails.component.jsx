@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReviewsRatingsComponent from './Reviews&Ratings.component';
+import { useParams } from 'react-router-dom';
+import { ProductContext } from '../../../Context/product.context';
 
 
 const ProductDetailsComponent = () => {
+    const { productToDisplayId } = useParams();
+    const { insertProductInCart, insertProductInWishlist, productToShow } = useContext(ProductContext);
+    const [ productToDisplayName, setProductToDisplayName ] = useState('');
+    const [ productToDisplayDescription, setProductToDisplayDescription ] = useState('');
+    const [ productToDisplayPrice, setProductToDisplayPrice ] = useState('');
+    const [ productToDisplayImageURL, setProductToDisplayImageURL ] = useState('');
+    const [ product, setProduct ] = useState({});
+
+    // console.log(productToDisplayId);
+    useEffect(()=>{
+        const productToDisplay = productToShow.find((product)=> product.productId === productToDisplayId);
+        setProduct({...productToDisplay})
+        const { productImageURL, productName, productDescription, productPrice } = productToDisplay;
+        setProductToDisplayName(productName);
+        setProductToDisplayDescription(productDescription);
+        setProductToDisplayPrice(productPrice);
+        setProductToDisplayImageURL(productImageURL)
+    },[productToDisplayId]);
+    const addToCart = ()=> insertProductInCart(product);
+    const addToWishlist = () => insertProductInWishlist(product);
 
     return (
         <div className="md:pt-8 pt-24 p-2 h-full border-2 w-full justify-center items-center md:items-start bg-slate-100 rounded-md drop-shadow-md flex md:flex-row flex-col md:justify-around">
                 <div className="p-2 bg-cover flex flex-col gap-4">
-                    <img src="https://images.pexels.com/photos/3850468/pexels-photo-3850468.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt=""
+                    <img src={productToDisplayImageURL} alt=""
                     className='md:max-w-[45rem]'
                     />
 
@@ -19,17 +41,16 @@ const ProductDetailsComponent = () => {
                 <div className="p-2 md:h-screen h-full w-full flex flex-col justify-evenly">
                     <div className=" p-8 flex gap-5 flex-col text-wrap justify-between h-full">
                         <h2 className='text-xl'>
-                            {/* {productName} */} Lorem ipsum
+                            {productToDisplayName} 
                         </h2>
                         <p className='break-words text-wrap'>
-                            {/* {productDescription} */}
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, excepturi!
+                            {productToDisplayDescription}
                         </p>
                         
                         <h1 className='text-xl'>Price: 
                             <b>
-                            {/* ${productPrice} */}
-                            $400
+                            {` $${productToDisplayPrice}`}
+                            
                             </b>
                         </h1>
                         <div className=" w-[15rem]">
@@ -56,10 +77,10 @@ const ProductDetailsComponent = () => {
                     <div className="p-2 flex gap-2 md:justify-end flex-col md:flex-row">
                             <button className='bg-green-700 text-white p-2 rounded-md w-full'>Buy Now <i class="fa-solid fa-bolt"></i></button>
                             <button 
-                            // onClick={addToCart} 
+                            onClick={addToCart} 
                             className='bg-green-700 text-white p-2 rounded-md w-full'>Add to Cart <i class="fa-solid fa-cart-shopping text-slate-100" /></button>
                             <button 
-                            // onClick={addToWishlist} 
+                            onClick={addToWishlist} 
                             className='bg-green-700 text-white p-2 rounded-md w-full'>Add to Wishlist <i class="fa-solid fa-heart text-slate-100 text-lg" /></button>
 
                         </div>
