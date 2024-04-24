@@ -123,7 +123,7 @@ const CheckoutFormComponent = () => {
                                     <input type="text" />
                                 </label>
                                 <label>
-                                    CVC
+                                    CVV
                                     <br />
                                     <input type="text" />
                                 </label>

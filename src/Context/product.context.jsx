@@ -175,6 +175,7 @@ export const ProductProvider = ({children})=>{
         setProductInWishlist(newProductInWishlist);
     }
 
+
     const value = { productToShow, allProducts, setAllProducts, productToShowFromSearch, productInCart, productInWishlist, insertProductInCart, decreaseQuantity, increaseQuantity, totalPrice, totalItem, removeProductFromCart, insertProductInWishlist, removeProductFromWishlist};
     return(
         <ProductContext.Provider value={value}>{children}</ProductContext.Provider>

@@ -1,11 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ProductContext } from '../../../Context/product.context';
 import { Link } from 'react-router-dom';
 
 const CartItemComponent = ({product}) => {
-    const [quantity, setQuantity ] = useState(1);
+    const [quantity, setQuantity ] = useState(0);
     const { productId, productName, productDescription, productPrice, productImageURL} = product;
-    const { removeProductFromCart, decreaseQuantity, increaseQuantity } = useContext(ProductContext);
+    const { productInCart, removeProductFromCart, decreaseQuantity, increaseQuantity } = useContext(ProductContext);
+    useEffect(()=>{
+        const currProduct = productInCart.find((cartProduct)=> cartProduct.productId === productId);
+        setQuantity(currProduct.quantity);
+    },[]);
 
     const increaseAmnt = ()=>{
         setQuantity(quantity+1);
