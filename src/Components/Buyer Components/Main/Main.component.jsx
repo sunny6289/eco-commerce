@@ -12,8 +12,8 @@ const MainComponent = () => {
                 {
                     isProfileCardOpen && <ProfileCardComponent/>
                 }
-                {/* <ProductListContainerComponent /> */}
-                <CheckoutContainerComponent />
+                <ProductListContainerComponent />
+                {/* <CheckoutContainerComponent /> */}
             </div>
         </>
     );

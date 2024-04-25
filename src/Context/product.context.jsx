@@ -1,20 +1,27 @@
 import { createContext, useEffect, useState } from "react";
 
 
-
 export const ProductContext = createContext({
     allProducts: [],
     productToShow: [],
     productInCart: [],
     productInWishlist: [],
+    productInPurchase: [],
     insertProductInCart: ()=>{},
     insertProductInWishlist: ()=>{},
+    insertProductInPurchase: ()=>{},
     decreaseQuantity: ()=>{},
     increaseQuantity: ()=>{},
+    increaseOrderQuantity: ()=>{},
+    decreaseOrderQuantity: ()=>{},
     removeProductFromCart: ()=>{},
     removeProductFromWishlist: ()=>{},
-    totalPrice: 0,
-    totalItem: 0,
+    removeProductFromOrder: ()=>{},
+    PURCHASE_FROM_PAGE: {},
+    totalCartPrice: 0,
+    totalCartItem: 0,
+    orderSubtotalPrice: 0,
+    orderTotalPrice: 0,
 })
 
 export const ProductProvider = ({children})=>{
@@ -99,11 +106,21 @@ export const ProductProvider = ({children})=>{
             productRating: '4'
         }
     ])
+    const [PURCHASE_FROM_PAGE, setPURCHASE_FROM_PAGE] = useState({
+        main: 'main',
+        wishlist: 'wishlist',
+        cart: 'cart'
+    });
     const [productToShow, setProductToShow] = useState(allProducts);
     const [productInCart, setProductInCart] = useState([]);
     const [productInWishlist, setProductInWishlist] = useState([]);
-    const [totalItem, setTotalItem ] = useState(0);
-    const [totalPrice, setTotalPrice ] = useState(0);
+    const [productInPurchase, setProductInPurchase] = useState([]);
+    const [totalCartItem, setTotalItem ] = useState(0);
+    const [totalCartPrice, setTotalPrice ] = useState(0);
+    const [orderSubtotalPrice, setorderSubtotalPrice ] = useState(0);
+    const [orderTotalPrice, setOrderTotalPrice ] = useState(0);
+
+    console.log(productInPurchase);
 
     useEffect(()=>{
         const price = productInCart.reduce((acc,product)=> acc+= Number(product.productPrice*product.quantity),0)
@@ -114,6 +131,12 @@ export const ProductProvider = ({children})=>{
         const item = productInCart.reduce((acc,product)=> acc+= product.quantity,0)
         setTotalItem(item);
     },[productInCart]);
+
+    useEffect(()=>{
+        const price = productInPurchase.reduce((acc,product)=> acc+= Number(product.productPrice*product.quantity),0)
+        setorderSubtotalPrice(price);
+        setOrderTotalPrice(price+((price/100)*18));
+    },[productInPurchase])
 
     const insertProductInCart = (productToAdd)=>{
         // Will be used to add product in Cart
@@ -158,6 +181,33 @@ export const ProductProvider = ({children})=>{
         });
         setProductInCart(newProductInCart);
     }
+    const increaseOrderQuantity = (productIdToIncrease)=>{
+        const newProductInOrder = productInPurchase.map((product)=> {
+            if(product.productId === productIdToIncrease){
+                return {...product, quantity: product.quantity+1}
+            }
+            return product
+        });
+        setProductInPurchase(newProductInOrder);
+    }
+    const decreaseOrderQuantity = (productIdToDecrease)=> {
+        const findProductInOrder = productInPurchase.find((product)=> product.productId === productIdToDecrease);
+        if(findProductInOrder.quantity === 1){
+            removeProductFromOrder(productIdToDecrease);
+            return;
+        }
+        const newProductInOrder = productInPurchase.map((product)=> {
+            if(product.productId === productIdToDecrease){
+                return {...product, quantity: product.quantity-1}
+            }
+            return product;
+        });
+        setProductInPurchase(newProductInOrder);
+    }
+    const removeProductFromOrder = (productIdToRemove)=> {
+        const newProductInPurchase = productInPurchase.filter((product)=> product.productId !== productIdToRemove);
+        setProductInPurchase(newProductInPurchase);
+    }
     const removeProductFromCart = (productIdToRemove)=>{
         const newProductInCart = productInCart.filter((product)=> product.productId !== productIdToRemove);
         setProductInCart(newProductInCart);
@@ -174,9 +224,17 @@ export const ProductProvider = ({children})=>{
         const newProductInWishlist = productInWishlist.filter((product)=> product.productId !== productIdToRemove);
         setProductInWishlist(newProductInWishlist);
     }
+    const insertProductInPurchase = (product, insertRequestFrom)=>{
+        if(insertRequestFrom === 'main'){
+            setProductInPurchase([{...product ,quantity: 1}]);
+        }else if(insertRequestFrom === 'wishlist'){
+            setProductInPurchase([{...product,quantity: 1}]);
+        }else{
+            setProductInPurchase(product);
+        }
+    }
 
-
-    const value = { productToShow, allProducts, setAllProducts, productToShowFromSearch, productInCart, productInWishlist, insertProductInCart, decreaseQuantity, increaseQuantity, totalPrice, totalItem, removeProductFromCart, insertProductInWishlist, removeProductFromWishlist};
+    const value = { productToShow, allProducts, setAllProducts, productToShowFromSearch, productInCart, productInWishlist, productInPurchase, insertProductInCart, decreaseQuantity, increaseQuantity, totalCartPrice, totalCartItem, orderSubtotalPrice, orderTotalPrice, removeProductFromCart, insertProductInWishlist, insertProductInPurchase, removeProductFromWishlist, PURCHASE_FROM_PAGE, decreaseOrderQuantity, increaseOrderQuantity, removeProductFromOrder};
     return(
         <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
     )

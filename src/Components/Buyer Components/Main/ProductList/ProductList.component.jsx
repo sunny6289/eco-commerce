@@ -1,12 +1,17 @@
 import React, { useContext } from 'react';
 import { ProductContext } from '../../../../Context/product.context';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ProductListComponent = ({ product }) => {
     const { productId, productName, productDescription, productPrice, productImageURL, productRating } = product;
-    const { insertProductInWishlist, insertProductInCart } = useContext(ProductContext);
+    const { insertProductInWishlist, insertProductInCart, insertProductInPurchase, PURCHASE_FROM_PAGE } = useContext(ProductContext);
+    const navigate = useNavigate();
     const addToCart = () => insertProductInCart(product);
     const addToWishlist = () => insertProductInWishlist(product);
+    const addToPurchase = () => {
+        insertProductInPurchase(product, PURCHASE_FROM_PAGE.main);
+        navigate('/purchase');
+    }
     return (
         <>
             <div className="p-2 border-2 md:w-full w-[18rem] justify-center items-center bg-slate-100 rounded-md drop-shadow-md flex flex-col gap-2 md:flex-row">
@@ -37,7 +42,7 @@ const ProductListComponent = ({ product }) => {
                         </div>
                     </Link>
                     <div className="p-2 flex gap-2 justify-center flex-col md:flex-row">
-                        <button className='bg-green-700 text-white p-2 rounded-md w-full'>Buy Now <i class="fa-solid fa-bolt"></i></button>
+                        <button onClick={addToPurchase} className='bg-green-700 text-white p-2 rounded-md w-full'>Buy Now <i class="fa-solid fa-bolt"></i></button>
                         <button onClick={addToWishlist} className='bg-green-700 text-white p-2 rounded-md w-full'>Add to Wishlist <i class="fa-solid fa-heart text-slate-100 text-lg" /></button>
                         <button onClick={addToCart} className='bg-green-700 text-white p-2 rounded-md w-full'>Add to Cart <i class="fa-solid fa-cart-shopping text-slate-100" /></button>
                     </div>
