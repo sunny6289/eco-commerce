@@ -3,6 +3,8 @@ import ProductListContainerComponent from '../Home/ProductList Container/Product
 import { UserContext } from '../../../Context/user.context';
 import ProfileCardComponent from '../Profile Card/ProfileCard.component';
 import CheckoutContainerComponent from '../Checkout Components/CheckoutContainer.component';
+import MyOrdersContainerComponent from '../My orders components/MyOrdersContainer.component';
+import ViewOrderComponent from '../My orders components/ViewOrder.component';
 
 const MainComponent = () => {
     const { isProfileCardOpen } = useContext(UserContext);
@@ -13,7 +15,9 @@ const MainComponent = () => {
                     isProfileCardOpen && <ProfileCardComponent/>
                 }
                 {/* <ProductListContainerComponent /> */}
-                <CheckoutContainerComponent />
+                {/* <CheckoutContainerComponent /> */}
+                {/* <MyOrdersContainerComponent /> */}
+                <ViewOrderComponent />
             </div>
         </>
     );
