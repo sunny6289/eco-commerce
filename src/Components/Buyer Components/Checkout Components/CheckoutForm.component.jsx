@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Checkout.style.css'
 import ProductsInOrderSummaryComponent from './ProductsInOrderSummary.component';
+import { ProductContext } from '../../../Context/product.context';
 
 const CheckoutFormComponent = () => {
+    const { productInPurchase, orderSubtotalPrice, orderTotalPrice } = useContext(ProductContext);
+
     return (
         <>
             <div className=" checkout-form w-full p-8 flex justify-evenly md:flex-row flex-col gap-5">
@@ -134,29 +137,30 @@ const CheckoutFormComponent = () => {
                 <div className=" flex flex-col gap-5 md:w-[30rem]">
                     <h2>Order summary</h2>
                     <div className=" overflow-y-scroll h-[15rem] flex flex-col gap-2 md:p-4 w-full">
-                        <ProductsInOrderSummaryComponent />
-                        <ProductsInOrderSummaryComponent />
+                        {
+                            productInPurchase.map((product)=> <ProductsInOrderSummaryComponent key={product.productId} product={product} />)
+                        }
                     </div>
                     <hr className='border-1 border-slate-400' />
                     <div className="flex flex-col gap-2">
                         <div className="flex justify-between">
                             <span>Subtotal</span>
-                            <span>$64.00</span>
+                            <span>{`$${orderSubtotalPrice}`}</span>
                         </div>
                         <div className="flex justify-between">
                             <span>Shipping</span>
                             <span>$5.00</span>
                         </div>
                         <div className="flex justify-between">
-                            <span>Taxes</span>
-                            <span>$5.52</span>
+                            <span>{`Taxes(18%)`}</span>
+                            <span>{`$${orderTotalPrice-orderSubtotalPrice}`}</span>
                         </div>
                     </div>
                     <hr className='border-1 border-slate-400' />
                     <div className="">
                         <div className=" flex justify-between">
                                 <span className=' font-bold'>Total</span>
-                                <span>$75.52</span>
+                                <span>{`$${orderTotalPrice+5}`}</span>
                         </div>
                     </div>
                     
