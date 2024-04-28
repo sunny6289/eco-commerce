@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReviewsRatingsComponent from './Reviews&Ratings.component';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ProductContext } from '../../../Context/product.context';
 
 
 const ProductDetailsComponent = () => {
     const { productToDisplayId } = useParams();
-    const { insertProductInCart, insertProductInWishlist, productToShow } = useContext(ProductContext);
+    const navigate = useNavigate();
+    const { insertProductInCart, insertProductInWishlist, productToShow, insertProductInPurchase, PURCHASE_FROM_PAGE } = useContext(ProductContext);
     const [ productToDisplayName, setProductToDisplayName ] = useState('');
     const [ productToDisplayDescription, setProductToDisplayDescription ] = useState('');
     const [ productToDisplayPrice, setProductToDisplayPrice ] = useState('');
@@ -25,6 +26,10 @@ const ProductDetailsComponent = () => {
     },[productToDisplayId]);
     const addToCart = ()=> insertProductInCart(product);
     const addToWishlist = () => insertProductInWishlist(product);
+    const addToPurchase = ()=>{
+        insertProductInPurchase(product, PURCHASE_FROM_PAGE.main);
+        navigate('/purchase');
+    }
 
     return (
         <div className="md:pt-8 pt-24 p-2 h-full border-2 w-full justify-center items-center md:items-start bg-slate-100 rounded-md drop-shadow-md flex md:flex-row flex-col md:justify-around">
@@ -75,7 +80,7 @@ const ProductDetailsComponent = () => {
                         
                     </div>
                     <div className="p-2 flex gap-2 md:justify-end flex-col md:flex-row">
-                            <button className='bg-green-700 text-white p-2 rounded-md w-full'>Buy Now <i class="fa-solid fa-bolt"></i></button>
+                            <button onClick={addToPurchase} className='bg-green-700 text-white p-2 rounded-md w-full'>Buy Now <i class="fa-solid fa-bolt"></i></button>
                             <button 
                             onClick={addToCart} 
                             className='bg-green-700 text-white p-2 rounded-md w-full'>Add to Cart <i class="fa-solid fa-cart-shopping text-slate-100" /></button>

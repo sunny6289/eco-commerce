@@ -1,7 +1,15 @@
-import React from 'react';
-import OrdersPreviewComponent from './OrdersPreview.component';
+import { useNavigate } from "react-router-dom";
 
-const MyOrdersComponent = () => {
+
+
+const MyOrdersComponent = ({order}) => {
+    const {orderNumber, orderDate, priceDetail} = order;
+    const navigate = useNavigate();
+
+    const viewOrderDetails = ()=>{
+        navigate('/order/'+orderNumber);
+    }
+
     return (
         <>
             {/* <div className=" flex flex-col gap-6"> */}
@@ -16,29 +24,21 @@ const MyOrdersComponent = () => {
                       <div className=" flex md:gap-14 gap-4 flex-col md:flex-row justify-between">
                         <div className=" flex md:flex-col gap-2 justify-between">
                             <dt>Order number</dt>
-                            <dd>WU88191111</dd>
+                            <dd>{orderNumber}</dd>
                         </div>
                         <div className=" flex md:flex-col gap-2 justify-between">
                             <dt>Date placed</dt>
-                            <dd>January 22, 2021</dd>
+                            <dd>{orderDate}</dd>
                         </div>
                         <div className=" flex md:flex-col gap-2 justify-between">
                             <dt>Total amount</dt>
-                            <dd>$302.00</dd>
+                            <dd>${priceDetail.totalPrice}</dd>
                         </div>
                       </div>
                       <div className=" flex gap-2 flex-col md:flex-row md:w-[15rem] h-full justify-center">
-                        <button className='border-[1px] border-slate-300 w-full h-10 rounded-md bg-white'>View Order</button>
-                        <button className='border-[1px] border-slate-300 w-full h-10 rounded-md bg-white'>View Invoice</button>
-                      </div>  
-                    {/* </div> */}
-                    {/* <div className=" max-w-[45rem]">
-                        <OrdersPreviewComponent />
-                        <OrdersPreviewComponent />
-                        <OrdersPreviewComponent />
-                    </div> */}
+                        <button onClick={viewOrderDetails} className='border-[1px] border-slate-300 w-full h-10 rounded-md bg-white'>View Order</button>
+                      </div>
                 </div>
-            {/* </div> */}
         </>
     );
 }

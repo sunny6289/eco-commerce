@@ -14,10 +14,10 @@ const MainComponent = () => {
                 {
                     isProfileCardOpen && <ProfileCardComponent/>
                 }
-                {/* <ProductListContainerComponent /> */}
+                <ProductListContainerComponent />
                 {/* <CheckoutContainerComponent /> */}
                 {/* <MyOrdersContainerComponent /> */}
-                <ViewOrderComponent />
+                {/* <ViewOrderComponent /> */}
             </div>
         </>
     );

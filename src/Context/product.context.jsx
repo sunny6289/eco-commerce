@@ -120,7 +120,7 @@ export const ProductProvider = ({children})=>{
     const [orderSubtotalPrice, setorderSubtotalPrice ] = useState(0);
     const [orderTotalPrice, setOrderTotalPrice ] = useState(0);
 
-    console.log(productInPurchase);
+    // console.log(productInPurchase);
 
     useEffect(()=>{
         const price = productInCart.reduce((acc,product)=> acc+= Number(product.productPrice*product.quantity),0)
