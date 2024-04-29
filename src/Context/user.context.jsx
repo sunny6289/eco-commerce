@@ -6,14 +6,17 @@ export const UserContext = createContext({
     userAuthType:'login',
     setUserAuthType: ()=>{},
     isProfileCardOpen: false,
-    setIsProfileCardOpen: ()=>{}
+    sellerAddProduct: false,
+    setIsProfileCardOpen: ()=>{},
+    setSellerAddProduct: ()=>{}
 })
 
 export const UserProvider = ({children})=>{
     const [userType, setUserType] = useState('buyer');
     const [userAuthType, setUserAuthType] = useState('login');
     const [isProfileCardOpen, setIsProfileCardOpen] = useState(false);
-    const value = { userType , setUserType, userAuthType, setUserAuthType, isProfileCardOpen, setIsProfileCardOpen};
+    const [sellerAddProduct, setSellerAddProduct] = useState(false);
+    const value = {sellerAddProduct, userType , setUserType,setSellerAddProduct, userAuthType, setUserAuthType, isProfileCardOpen, setIsProfileCardOpen};
     return(
         <UserContext.Provider value={value}>{children}</UserContext.Provider>
     )
