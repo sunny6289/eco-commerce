@@ -16,7 +16,7 @@ const ProfileCardComponent = () => {
             gap: '10px',
             borderRadius : '6px',
             alignItems: 'center'
-        }} className='profile-card-container'>
+        }} className='profile-card-container fixed md:top-24 top-52 z-20'>
             <div className='profile-img' style={{
                 width: '30px',
                 height: '30px',

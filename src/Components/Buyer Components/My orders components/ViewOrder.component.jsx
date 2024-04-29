@@ -6,8 +6,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import OrdersPreviewComponent from './OrdersPreview.component';
 import { useParams } from 'react-router-dom';
 import { OrderContext } from '../../../Context/order.context';
+import ProfileCardComponent from '../Profile Card/ProfileCard.component';
+import { UserContext } from '../../../Context/user.context';
 
 const ViewOrderComponent = () => {
+    const { isProfileCardOpen } = useContext(UserContext);
     const { orderId } = useParams();
     const { getOrderDetail } = useContext(OrderContext);
     const [orderDetailToShow, setOrderDetailToShow] = useState({});
@@ -23,12 +26,16 @@ const ViewOrderComponent = () => {
 
     // console.log("render")
     return (
-        <>
+        <div>
+             
             {
                 orderDetailToShow.orderedProduct !== undefined ?
-                    (<div className=" max-w-[45rem] md:pt-2 pt-24 flex md:flex-row flex-col justify-between">
+                    (<div className=" max-w-[45rem] md:pt-2 pt-32 mt-16 flex md:flex-row flex-col justify-between">
+                        {
+                            isProfileCardOpen && <ProfileCardComponent />
+                        }
                         <div className="flex flex-col">
-                            <span className='flex items-center gap-2 fixed bg-white py-4 px-2 w-full md:top-20 top-[11.5rem] left-0 z-10'>
+                            <span className='flex items-center gap-2 fixed bg-white py-4 px-2 w-full md:top-20 top-[11.5rem] left-0 z-0'>
                                 <h2 className='text-xl font-bold'>#Order number - </h2>
                                 <span>{orderDetailToShow.orderNumber}</span>
                             </span>
@@ -79,7 +86,8 @@ const ViewOrderComponent = () => {
                         </div>
                     </div>) : " "
             }
-        </>
+           
+        </div>
 
     );
 }

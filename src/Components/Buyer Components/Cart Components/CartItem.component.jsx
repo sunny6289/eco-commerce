@@ -49,10 +49,10 @@ const CartItemComponent = ({product}) => {
                                 <button onClick={decreaseAmnt} className='px-3 py-0 text-center bg-slate-600 text-white text-4xl rounded-md'>-</button> 
                                 <span className='text-2xl'>{quantity}</span> 
                                 <button onClick={increaseAmnt} className='px-2 bg-slate-600 text-white text-4xl rounded-md'>+</button>
-                            </div>
-                            <div className="">
-                                <button onClick={removeProduct} className='px-2 py-2 bg-slate-600 text-white text-xl rounded-md'>Remove</button>
-                            </div>
+                                </div>
+                                <div className="">
+                                    <button onClick={removeProduct} className='px-2 py-2 bg-slate-600 text-white text-xl rounded-md'>Remove</button>
+                                </div>
                         </div>
                     </div>
                 </div>
