@@ -1,4 +1,3 @@
-import React from 'react';
 import NavbarComponent from './Navbar/navbar.component';
 import { Outlet } from 'react-router-dom';
 
@@ -10,7 +9,7 @@ const HomeComponent = () => {
             </div>
             <div>
                 <Outlet />
-            </div>
+            </div> 
         </div>
     );
 }
