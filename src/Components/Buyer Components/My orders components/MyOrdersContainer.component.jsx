@@ -2,14 +2,21 @@ import React, { useContext } from 'react';
 import MyOrdersComponent from './MyOrders.component';
 import { OrderContext } from '../../../Context/order.context';
 import { useNavigate } from 'react-router-dom';
+import ProfileCardComponent from '../Profile Card/ProfileCard.component';
+import { UserContext } from '../../../Context/user.context';
 
 const MyOrdersContainerComponent = () => {
+    const { isProfileCardOpen } = useContext(UserContext);
     const { orderList } = useContext(OrderContext);
     const navigate = useNavigate();
     const gotoHome = ()=> navigate('/');
     return (
-        <div className='flex flex-col md:pt-8 pt-24 p-2 justify-center items-center gap-12 w-full'>
+        <div className='flex flex-col md:pt-20 md:mt-12 pt-32 p-2 justify-center items-center gap-12 w-full'>
+            
             <div className="w-full flex flex-col items-center justify-between">
+            {
+                    isProfileCardOpen && <ProfileCardComponent />
+            }
                 <div className=" fixed md:top-20 top-40 md:left-20 flex flex-col gap-2 border-b-[1px] border-slate-300 items-start  w-full p-8 bg-white">
                         <h1 className='text-2xl font-bold'>My orders</h1>
                         <p className='text-sm text-slate-600'>Check the status of recent orders, manage returns, and download invoices.</p>
